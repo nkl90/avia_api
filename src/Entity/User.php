@@ -42,9 +42,15 @@ class User implements UserInterface
      */
     private $reservations;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Ticket::class, mappedBy="customer")
+     */
+    private $tickets;
+
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
+        $this->tickets = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -150,6 +156,37 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($reservation->getClient() === $this) {
                 $reservation->setClient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Ticket[]
+     */
+    public function getTickets(): Collection
+    {
+        return $this->tickets;
+    }
+
+    public function addTicket(Ticket $ticket): self
+    {
+        if (!$this->tickets->contains($ticket)) {
+            $this->tickets[] = $ticket;
+            $ticket->setCustomer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTicket(Ticket $ticket): self
+    {
+        if ($this->tickets->contains($ticket)) {
+            $this->tickets->removeElement($ticket);
+            // set the owning side to null (unless already changed)
+            if ($ticket->getCustomer() === $this) {
+                $ticket->setCustomer(null);
             }
         }
 

@@ -23,6 +23,17 @@ class Ticket
      */
     private $flight;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tickets")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $customer;
+
+    /**
+     * @ORM\Column(type="smallint")
+     */
+    private $state;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -36,6 +47,30 @@ class Ticket
     public function setFlight(?Flight $flight): self
     {
         $this->flight = $flight;
+
+        return $this;
+    }
+
+    public function getCustomer(): ?User
+    {
+        return $this->customer;
+    }
+
+    public function setCustomer(?User $customer): self
+    {
+        $this->customer = $customer;
+
+        return $this;
+    }
+
+    public function getState(): ?int
+    {
+        return $this->state;
+    }
+
+    public function setState(int $state): self
+    {
+        $this->state = $state;
 
         return $this;
     }

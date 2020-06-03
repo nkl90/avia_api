@@ -6,16 +6,14 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\Ticket;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-use App\Entity\Flight;
-use App\Entity\User;
 
-class TicketsFixture extends Fixture implements DependentFixtureInterface
+class TicketsFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
         for($i = 0; $i < 10; $i++){
             $ticket = new Ticket();
-            $flight = $this->getReference(FlightFixture::REF_PREFIX . rand(0, 9));
+            $flight = $this->getReference(FlightFixtures::REF_PREFIX . rand(0, 9));
             $ticket->setFlight($flight);
             $customer = $this->getReference(UsersFixtures::REF_PREFIX . rand(0, 9));
             $ticket->setCustomer($customer);
@@ -29,7 +27,7 @@ class TicketsFixture extends Fixture implements DependentFixtureInterface
     
     public function getDependencies() {
         return [
-            FlightFixture::class,
+            FlightFixtures::class,
             UsersFixtures::class
         ];
     }

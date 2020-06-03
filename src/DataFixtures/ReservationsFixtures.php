@@ -7,13 +7,13 @@ use Doctrine\Persistence\ObjectManager;
 use App\Entity\Reservation;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-class ReservationFixture extends Fixture implements DependentFixtureInterface
+class ReservationsFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
         for($i = 0; $i < 10; $i++){
             $reserv = new Reservation();
-            $flight = $this->getReference(FlightFixture::REF_PREFIX . random_int(0, 9));
+            $flight = $this->getReference(FlightFixtures::REF_PREFIX . random_int(0, 9));
             $reserv->setFlight($flight);
             $flightDate = $flight->getDate();
             $reserv->setDateOfReservation($flightDate->modify('+1 day') );
@@ -29,7 +29,7 @@ class ReservationFixture extends Fixture implements DependentFixtureInterface
     
     public function getDependencies() {
         return [
-            FlightFixture::class,
+            FlightFixtures::class,
             UsersFixtures::class
         ];
     }

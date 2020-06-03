@@ -6,7 +6,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\Flight;
 
-class FlightFixture extends Fixture
+class FlightFixtures extends Fixture
 {
     protected array $cities = [
         'Москва', 'Лондон', 'Берлин', 'Нью-Йорк', 'Париж',

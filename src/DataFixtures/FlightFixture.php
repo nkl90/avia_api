@@ -12,6 +12,7 @@ class FlightFixture extends Fixture
         'Москва', 'Лондон', 'Берлин', 'Нью-Йорк', 'Париж',
         'Токио', 'Сан-Франциско', 'Алма-Аты', 'Гон-конг'
     ];
+    public const REF_PREFIX = 'flight-';
     
     public function load(ObjectManager $manager)
     {
@@ -27,6 +28,8 @@ class FlightFixture extends Fixture
             $flight->setDate(new \DateTime($this->getRandomDate()));
             
             $manager->persist($flight);
+            
+            $this->addReference(self::REF_PREFIX . $i, $flight);
         }
         
         $manager->flush();

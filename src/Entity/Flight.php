@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\FlightRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -41,6 +43,22 @@ class Flight
      * @ORM\Column(type="smallint")
      */
     private $status;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Reservation::class, mappedBy="flight")
+     */
+    private $reservations;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Ticket::class, mappedBy="flight")
+     */
+    private $tickets;
+
+    public function __construct()
+    {
+        $this->reservations = new ArrayCollection();
+        $this->tickets = new ArrayCollection();
+    }
 
     public const STATUS_ACTUAL = 1;
     public const STATUS_CANCALED = 0;
@@ -106,6 +124,68 @@ class Flight
     public function setStatus(int $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Reservation[]
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservation $reservation): self
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations[] = $reservation;
+            $reservation->setFlight($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): self
+    {
+        if ($this->reservations->contains($reservation)) {
+            $this->reservations->removeElement($reservation);
+            // set the owning side to null (unless already changed)
+            if ($reservation->getFlight() === $this) {
+                $reservation->setFlight(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Ticket[]
+     */
+    public function getTickets(): Collection
+    {
+        return $this->tickets;
+    }
+
+    public function addTicket(Ticket $ticket): self
+    {
+        if (!$this->tickets->contains($ticket)) {
+            $this->tickets[] = $ticket;
+            $ticket->setFlight($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTicket(Ticket $ticket): self
+    {
+        if ($this->tickets->contains($ticket)) {
+            $this->tickets->removeElement($ticket);
+            // set the owning side to null (unless already changed)
+            if ($ticket->getFlight() === $this) {
+                $ticket->setFlight(null);
+            }
+        }
 
         return $this;
     }

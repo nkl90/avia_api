@@ -9,8 +9,9 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UsersFixtures extends Fixture
 {
-    private $passwordEncoder;
-   
+    private UserPasswordEncoderInterface $passwordEncoder;
+    public const REF_PREFIX = 'user-';
+    
     public function __construct(UserPasswordEncoderInterface $passwordEncoder)
     {
         $this->passwordEncoder = $passwordEncoder;
@@ -26,8 +27,11 @@ class UsersFixtures extends Fixture
                 'qwerty'
             ));
             $manager->persist($user);
+            $this->addReference(self::REF_PREFIX . $i, $user);
         }
-       $manager->flush();
+        
+        $manager->flush();
+       
         
     }
 }

@@ -18,6 +18,16 @@ class UsersFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
+        for($i = 0; $i < 10; $i++){
+            $user = new User();
+            $user->setEmail('user' . $i . '@mail.ru');
+            $user->setPassword($this->passwordEncoder->encodePassword(
+                $user,
+                'qwerty'
+            ));
+            $manager->persist($user);
+        }
+       $manager->flush();
         
     }
 }

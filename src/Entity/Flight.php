@@ -42,6 +42,9 @@ class Flight
      */
     private $status;
 
+    public const STATUS_ACTUAL = 1;
+    public const STATUS_CANCALED = 0;
+    
     public function getId(): ?int
     {
         return $this->id;

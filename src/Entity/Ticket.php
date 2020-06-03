@@ -33,6 +33,9 @@ class Ticket
      * @ORM\Column(type="smallint")
      */
     private $state;
+    
+    public const STATUS_ACTUAL = 1;
+    public const STATUS_RETURNED = 0;
 
     public function getId(): ?int
     {

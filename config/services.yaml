@@ -40,4 +40,12 @@ services:
     App\Method\ReserveSeatCancelMethod:
         public: false
         tags: [{ method: 'reserve-cancel', name: 'json_rpc_http_server.jsonrpc_method' }]
+        
+    App\Method\TicketBuyMethod:
+        public: false
+        tags: [{ method: 'ticket-buy', name: 'json_rpc_http_server.jsonrpc_method' }]
+    
+    App\Method\TicketReturnMethod:
+        public: false
+        tags: [{ method: 'ticket-return', name: 'json_rpc_http_server.jsonrpc_method' }]
     

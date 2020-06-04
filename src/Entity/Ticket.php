@@ -34,6 +34,11 @@ class Ticket
      */
     private $state;
     
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $seatNumber;
+    
     public const STATUS_ACTUAL = 1;
     public const STATUS_RETURNED = 0;
 
@@ -75,6 +80,18 @@ class Ticket
     {
         $this->state = $state;
 
+        return $this;
+    }
+    
+    public function getSeatNumber(): ?int
+    {
+        return $this->seatNumber;
+    }
+    
+    public function setSeatNumber(int $seatNumber): self
+    {
+        $this->seatNumber = $seatNumber;
+        
         return $this;
     }
 }

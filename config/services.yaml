@@ -25,3 +25,19 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    mapping_aware_service:
+       class: App\MappingCollector
+       tags: ['json_rpc_http_server.method_aware']
+       
+    App\Method\PingMethod:
+        public: false
+        tags: [{ method: 'ping', name: 'json_rpc_http_server.jsonrpc_method' }]
+    
+    App\Method\ReserveSeatMethod:
+        public: false
+        tags: [{ method: 'reserve', name: 'json_rpc_http_server.jsonrpc_method' }]
+    
+    App\Method\ReserveSeatCancelMethod:
+        public: false
+        tags: [{ method: 'reserve-cancel', name: 'json_rpc_http_server.jsonrpc_method' }]
+    

@@ -322,5 +322,11 @@
     },
     "webimpress/safe-writer": {
         "version": "2.0.1"
+    },
+    "yoanm/jsonrpc-server-sdk": {
+        "version": "v3.1.1"
+    },
+    "yoanm/symfony-jsonrpc-http-server": {
+        "version": "v3.0.0"
     }
 }

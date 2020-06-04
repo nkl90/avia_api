@@ -4,3 +4,7 @@ index:
     
 api_login_check:
     path: /api/login_check
+    
+json-rpc-endpoint:
+    resource: '@JsonRpcHttpServerBundle/Resources/config/routing/endpoint.xml'
+    prefix: /api

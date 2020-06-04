@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d5fa542f722366e54fbce80405d77e37",
+    "content-hash": "1832dbb0c71ed3909dd286ea83b9e2f5",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -4779,6 +4779,116 @@
                 }
             ],
             "time": "2020-03-21T15:49:08+00:00"
+        },
+        {
+            "name": "yoanm/jsonrpc-server-sdk",
+            "version": "v3.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yoanm/php-jsonrpc-server-sdk.git",
+                "reference": "56a51335c1abcba31191ac4a4530f262271720a6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yoanm/php-jsonrpc-server-sdk/zipball/56a51335c1abcba31191ac4a4530f262271720a6",
+                "reference": "56a51335c1abcba31191ac4a4530f262271720a6",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "behat/behat": "~3.0",
+                "phpunit/phpunit": "^7.0 || ^8.0",
+                "squizlabs/php_codesniffer": "3.*",
+                "yoanm/jsonrpc-server-doc-sdk": "^0.2",
+                "yoanm/php-unit-extended": "^1.0"
+            },
+            "suggest": {
+                "yoanm/jsonrpc-params-symfony-validator-sdk": "Compatible params validator",
+                "yoanm/jsonrpc-server-doc-sdk": "Create documentation for your server",
+                "yoanm/jsonrpc-server-sdk-psr11-resolver": "Compatible PSR11 method resolver",
+                "yoanm/symfony-jsonrpc-http-server": "JSON-RPC HTTP Symfony server Bundle"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Yoanm\\JsonRpcServer\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Yoanm",
+                    "email": "yoanm@users.noreply.github.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Server SDK to convert a json-rpc request string into json-rpc response string",
+            "time": "2020-01-12T12:28:16+00:00"
+        },
+        {
+            "name": "yoanm/symfony-jsonrpc-http-server",
+            "version": "v3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yoanm/symfony-jsonrpc-http-server.git",
+                "reference": "8f30104400fd9d15264a00600a1a57b6781c414f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yoanm/symfony-jsonrpc-http-server/zipball/8f30104400fd9d15264a00600a1a57b6781c414f",
+                "reference": "8f30104400fd9d15264a00600a1a57b6781c414f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2",
+                "psr/container": "^1.0",
+                "symfony/config": "^4.0 || ^5.0",
+                "symfony/dependency-injection": "^4.0 || ^5.0",
+                "symfony/event-dispatcher": "^4.0 || ^5.0",
+                "symfony/event-dispatcher-contracts": "^1.0 || ^2.0",
+                "symfony/http-foundation": "^4.0 || ^5.0",
+                "symfony/http-kernel": "^4.0 || ^5.0",
+                "yoanm/jsonrpc-server-sdk": "^3.0"
+            },
+            "require-dev": {
+                "behat/behat": "~3.0",
+                "matthiasnoback/symfony-config-test": "^3.0 || ^4.0",
+                "matthiasnoback/symfony-dependency-injection-test": "^3.0 || ^4.0",
+                "phpunit/phpunit": "^7.0 || ^8.0",
+                "squizlabs/php_codesniffer": "3.*",
+                "symfony/framework-bundle": "^4.0 || ^5.0",
+                "symfony/routing": "^4.0 || ^5.0",
+                "yoanm/php-unit-extended": "~1.0"
+            },
+            "suggest": {
+                "yoanm/symfony-jsonrpc-http-server-doc": "JSON-RPC documentation Bundle",
+                "yoanm/symfony-jsonrpc-params-validator": "Symfony bundle for easy JSON-RPC params validation"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Yoanm\\SymfonyJsonRpcHttpServer\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Yoanm",
+                    "email": "yoanm@users.noreply.github.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Symfony Bundle to convert an HTTP json-rpc request into HTTP json-rpc response",
+            "time": "2020-03-27T23:44:28+00:00"
         }
     ],
     "packages-dev": [

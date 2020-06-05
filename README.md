@@ -61,3 +61,29 @@ RABBITMQ_URL=amqp://username:password@localhost:5672/vhost_name
 MAILER_URL=gmail://gmail_username:gmail_app_password@localhost
 MAILER_SEND_FROM=gmail_username@gmail.com
 ```
+
+### Использование
+Запускаем встроенный web-сервер:
+
+```
+$ bin/console server:start
+```
+
+Устанавливаем обработчки:
+
+```
+$ bin/console rabbitmq:setup-fabric 
+```
+
+Для получения событий о задержке рейсов выполнить команду:
+
+```
+$ bin/console app:events:refresh
+```
+эта команда получить случайные события с собственного API (метод events) и поставит их в очередь на обработку
+
+Что бы обработать очередь, выполните:
+
+```
+$ bin/console rabbitmq:consumer notifications
+```

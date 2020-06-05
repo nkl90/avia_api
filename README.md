@@ -39,3 +39,25 @@ JWT_SECRET_KEY=%kernel.project_dir%/config/jwt/private.pem
 JWT_PUBLIC_KEY=%kernel.project_dir%/config/jwt/public.pem
 JWT_PASSPHRASE=you_pass_phrase
 ```
+
+Сконфигурировать виртуальный хост и пользователя в RabbitMQ:
+
+```
+# rabbitmqctl add_vhost vhost_name
+# rabbitmqctl add_user username password
+# rabbitmqctl set_permissions -p vhost_name username ".*" ".*" ".*"
+```
+
+и дописать эти параметры в `.env.local`:
+
+```
+RABBITMQ_URL=amqp://username:password@localhost:5672/vhost_name
+```
+
+Сконфигурировать подключение к smtp-серверу в файле `.env.local`:
+
+
+```
+MAILER_URL=gmail://gmail_username:gmail_app_password@localhost
+MAILER_SEND_FROM=gmail_username@gmail.com
+```

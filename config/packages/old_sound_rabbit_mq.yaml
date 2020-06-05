@@ -2,7 +2,6 @@ old_sound_rabbit_mq:
     connections:
         default:
             url: '%env(RABBITMQ_URL)%'
-            vhost: avia_api
     producers:
         notifications:
             connection: default

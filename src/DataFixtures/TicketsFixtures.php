@@ -13,11 +13,15 @@ class TicketsFixtures extends Fixture implements DependentFixtureInterface
     {
         for($i = 0; $i < 10; $i++){
             $ticket = new Ticket();
-            $flight = $this->getReference(FlightFixtures::REF_PREFIX . rand(0, 9));
+            $flight = $this->getReference(FlightFixtures::REF_PREFIX . random_int(0, 9));
             $ticket->setFlight($flight);
-            $customer = $this->getReference(UsersFixtures::REF_PREFIX . rand(0, 9));
+            $customer = $this->getReference(UsersFixtures::REF_PREFIX . random_int(0, 9));
             $ticket->setCustomer($customer);
             $ticket->setState(Ticket::STATUS_ACTUAL);
+            
+            // Ненадежное решение, возможно, всемогущий рандом выдаст одно и то же место
+            // на один и тот же рейс из-за чего фикстуры могут и не взлететь
+            $ticket->setSeatNumber(random_int(0, $flight->getSeatsCount()));
             
             $manager->persist($ticket);
         }

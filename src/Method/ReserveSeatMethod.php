@@ -17,6 +17,6 @@ class ReserveSeatMethod implements JsonRpcMethodInterface
     
     public function apply(array $paramList = null)
     {
-        return $this->flightService->cancelReservSeat($paramList['flight_id'], $paramList['seat_number']);        
+        return $this->flightService->reservSeat($paramList['flight_id'], $paramList['seat_number']);        
     }
 }

@@ -121,7 +121,7 @@ class FlightService {
         
         $tickets = $this->em->getRepository(Ticket::class)->findByFlight($flight);
         
-        // TODO: разложить эту отправку в цикле в очередь
+        // TODO: разложить эту отправку в цикле в очередь и вынести отправку в отдельный сервис
         foreach($tickets as $ticket){
             dump($ticket->getCustomer()->getEmail());
         }

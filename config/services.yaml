@@ -49,3 +49,7 @@ services:
         public: false
         tags: [{ method: 'ticket-return', name: 'json_rpc_http_server.jsonrpc_method' }]
     
+    App\Method\EventsMethod:
+        public: false
+        tags: [{ method: 'events', name: 'json_rpc_http_server.jsonrpc_method' }] 
+    

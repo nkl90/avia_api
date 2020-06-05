@@ -22,19 +22,27 @@ class FlightRepository extends ServiceEntityRepository
     // /**
     //  * @return Flight[] Returns an array of Flight objects
     //  */
-    /*
-    public function findByExampleField($value)
+    
+    public function getRandomActualFlightsIds(int $limit = 1, array $sortOrder = ['id', 'ASC']): ?array
     {
-        return $this->createQueryBuilder('f')
-            ->andWhere('f.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('f.id', 'ASC')
-            ->setMaxResults(10)
+        //TODO: сделать эту выборку случайной
+        $eArray = $this->createQueryBuilder('f')
+            ->andWhere('f.status = :val')
+            ->setParameter('val', Flight::STATUS_ACTUAL)
+            ->orderBy('f.' . $sortOrder[0],$sortOrder[1])
+            ->setMaxResults($limit)
             ->getQuery()
             ->getResult()
         ;
+        
+        $result = [];
+        foreach($eArray as $entity){
+            $result[] = $entity->getId();
+        }
+        
+        return $result;
     }
-    */
+   
 
     /*
     public function findOneBySomeField($value): ?Flight

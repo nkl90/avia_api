@@ -51,5 +51,8 @@ services:
     
     App\Method\EventsMethod:
         public: false
-        tags: [{ method: 'events', name: 'json_rpc_http_server.jsonrpc_method' }] 
+        tags: [{ method: 'events', name: 'json_rpc_http_server.jsonrpc_method' }]
     
+    email_service:
+        public: false
+        class: App\Services\EmailService

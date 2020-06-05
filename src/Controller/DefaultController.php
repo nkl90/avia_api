@@ -13,6 +13,7 @@ class DefaultController extends AbstractController
     {
         $response = new Response();
         $response->setContent('Avia API v1');
+        
         return $response;
     }
 }

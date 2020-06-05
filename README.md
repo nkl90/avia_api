@@ -1,6 +1,7 @@
 ### Требования к окружению
 * php7.4-common, php7.4-cli, php7.4-fpm, php7.4-xml, php7.4-mbstring, php7.4-pgsql
 * postgresql-12
+* rabbitmq-server
 * БД с пустой схемой `public`
 
 ### Инструкция по развертыванию

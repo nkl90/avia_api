@@ -6,18 +6,20 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class EventsRefresherCommand extends Command
 {
     protected static $defaultName = 'app:events:refresh';
     
     private $client;
+    private $container;
     
-    public function __construct(HttpClientInterface $client)
+    public function __construct(HttpClientInterface $client, ContainerInterface $container)
     {
         parent::__construct();
         $this->client = $client;
-        
+        $this->container = $container;
     }
     
     protected function configure()
@@ -71,10 +73,17 @@ class EventsRefresherCommand extends Command
         
         if(isset($events['canceled_ticket'])){
             // Ставим задание на обновление статусов рейсов
+            $output->writeln('Add ' . count($events['canceled_ticket']) . ' canceled ticket sales flight in queue');
         }
         
         if(isset($events['canceled_flight'])){
-            // ставим задания на отправку писем
+            $this->container->get('old_sound_rabbit_mq.notifications_producer')
+            ->setContentType('application/json');
+            $this->container->get('old_sound_rabbit_mq.notifications_producer')->publish(json_encode($events['canceled_flight']));
+            $output->writeln('Add ' . count($events['canceled_flight']) . ' canceled flight in queue');
+            
         }
+        
+        $output->writeln('Done.');
     }
 }

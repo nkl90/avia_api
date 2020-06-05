@@ -18,4 +18,5 @@ old_sound_rabbit_mq:
                 type: direct
             queue_options:
                 name: emails
+                auto_delete: false
             callback: email_service

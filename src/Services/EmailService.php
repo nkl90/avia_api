@@ -10,10 +10,9 @@ class EmailService implements ConsumerInterface
 
     public function execute(AMQPMessage $msg)
     {
-
-        $body = $msg->body;
-        //var_dump($body);
-
+        dd($msg);
+        dump($msg->getBody());
+        $msg->setIsTruncated(true);
         $response = json_decode($msg->body, true);
 
         $type = $response["Type"];

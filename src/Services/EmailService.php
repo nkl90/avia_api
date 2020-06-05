@@ -7,21 +7,16 @@ use PhpAmqpLib\Message\AMQPMessage;
 
 class EmailService implements ConsumerInterface
 {
-
+    private $flightService;
+    
+    public function __construct(FlightService $service) {
+        $this->flightService = $service;
+    }
+    
     public function execute(AMQPMessage $msg)
     {
-        dd($msg);
-        dump($msg->getBody());
-        $msg->setIsTruncated(true);
-        $response = json_decode($msg->body, true);
-
-        $type = $response["Type"];
-
-        if ($type == "VerificationEmail") $this->sendVerificationEmail($response);
+        $this->flightService->cancelFlight((int) $msg->getBody());
+        
     }
 
-    private function sendVerificationEmail($response) {
-
-        // do something
-    }
 }

@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Entity\Reservation;
 use App\Entity\Flight;
+use App\Entity\Ticket;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -100,5 +101,30 @@ class FlightService {
         $this->em->flush();
         
         return true;
+    }
+    
+    /**
+     * Бизнес-логика отмены рейса
+     * 1. изменить статус рейса
+     * 2. Оповестить пользователей об отмене
+     */
+    public function cancelFlight(int $flightId)
+    {
+        $flight = $this->em->getRepository(Flight::class)->findOneById(46);
+        
+        if(!$flight)
+            throw new NotFoundHttpException('Flight not found');
+        
+        $flight->setStatus(Flight::STATUS_CANCALED);
+        $this->em->persist($flight);
+        $this->em->flush();
+        
+        $tickets = $this->em->getRepository(Ticket::class)->findByFlight($flight);
+        
+        // TODO: разложить эту отправку в цикле в очередь
+        foreach($tickets as $ticket){
+            dump($ticket->getCustomer()->getEmail());
+        }
+        die();
     }
 }

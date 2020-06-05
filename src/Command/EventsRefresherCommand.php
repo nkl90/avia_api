@@ -77,9 +77,12 @@ class EventsRefresherCommand extends Command
         }
         
         if(isset($events['canceled_flight'])){
-            $this->container->get('old_sound_rabbit_mq.notifications_producer')
-            ->setContentType('application/json');
-            $this->container->get('old_sound_rabbit_mq.notifications_producer')->publish(json_encode($events['canceled_flight']));
+            /*$this->container->get('old_sound_rabbit_mq.notifications_producer')
+            ->setContentType('application/json');*/
+            foreach($events['canceled_flight'] as $flightId){
+                $this->container->get('old_sound_rabbit_mq.notifications_producer')->publish($flightId);
+            }
+            
             $output->writeln('Add ' . count($events['canceled_flight']) . ' canceled flight in queue');
             
         }

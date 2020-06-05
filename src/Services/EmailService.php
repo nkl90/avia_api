@@ -17,6 +17,7 @@ class EmailService implements ConsumerInterface
     {
         $this->flightService->cancelFlight((int) $msg->getBody());
         
+        return true;
     }
 
 }

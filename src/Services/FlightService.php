@@ -12,13 +12,15 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class FlightService {
     
-    protected $em;
-    protected $security;
+    private $em;
+    private $security;
+    private $mailer;
     
-    public function __construct(EntityManagerInterface $em, Security $security)
+    public function __construct(EntityManagerInterface $em, Security $security, \Swift_Mailer $mailer)
     {
         $this->em = $em;
         $this->security = $security;
+        $this->mailer = $mailer;
     }
     /**
      * Бизнес-логика бронирования
@@ -110,7 +112,7 @@ class FlightService {
      */
     public function cancelFlight(int $flightId)
     {
-        $flight = $this->em->getRepository(Flight::class)->findOneById(46);
+        $flight = $this->em->getRepository(Flight::class)->findOneById($flightId);
         
         if(!$flight)
             throw new NotFoundHttpException('Flight not found');
@@ -121,10 +123,25 @@ class FlightService {
         
         $tickets = $this->em->getRepository(Ticket::class)->findByFlight($flight);
         
-        // TODO: разложить эту отправку в цикле в очередь и вынести отправку в отдельный сервис
+        // TODO: Хорошо бы разложить эту отправку в очередь и вынести её в отдельный сервис
+        
+        $mails = [];
         foreach($tickets as $ticket){
-            dump($ticket->getCustomer()->getEmail());
+            $mails[] = $ticket->getCustomer()->getEmail();
         }
-        die();
+        $mails = array_unique($mails);
+        
+        $message = (new \Swift_Message('К сожалению, Ваш рейс отменён'))
+            ->setFrom($_ENV['MAILER_SEND_FROM'])
+            ->setTo($mails)
+            ->setBody('К сожалению, рейс # ' . $flight->getId() . ' был отменён в связи с погодными условаиями', 'text/plain')
+        ;
+        
+        try {
+            $this->mailer->send($message);
+        } catch (\Exception $e) {
+            dump($e);
+        }
+        
     }
 }
